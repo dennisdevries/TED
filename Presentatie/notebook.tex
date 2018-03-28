@@ -1,0 +1,1443 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{TED\_slides}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{TED Talks}\label{ted-talks}
+
+\subsubsection{Data Science Project}\label{data-science-project}
+
+\begin{itemize}
+\tightlist
+\item
+  Laura Langeveld (10766227)
+\item
+  Dennis de Vries (10756302)
+\item
+  Michael van der Zwet (11047925)
+\item
+  Edward Gubler (10536892)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{subprocess} \PY{k}{import} \PY{n}{check\PYZus{}output}
+        \PY{k+kn}{from} \PY{n+nn}{wordcloud} \PY{k}{import} \PY{n}{WordCloud}\PY{p}{,} \PY{n}{STOPWORDS}
+\end{Verbatim}
+
+
+    \section{TED Talks Dataset}\label{ted-talks-dataset}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df\PYZus{}ted}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ted\PYZus{}main.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    comments                                        description  duration  \textbackslash{}
+        0      4553  Sir Ken Robinson makes an entertaining and pro{\ldots}      1164   
+        1       265  With the same humor and humanity he exuded in {\ldots}       977   
+        2       124  New York Times columnist David Pogue takes aim{\ldots}      1286   
+        3       200  In an emotionally charged talk, MacArthur-winn{\ldots}      1116   
+        4       593  You've never seen data presented like this. Wi{\ldots}      1190   
+        
+             event   film\_date  languages   main\_speaker  \textbackslash{}
+        0  TED2006  1140825600         60   Ken Robinson   
+        1  TED2006  1140825600         43        Al Gore   
+        2  TED2006  1140739200         26    David Pogue   
+        3  TED2006  1140912000         35  Majora Carter   
+        4  TED2006  1140566400         48   Hans Rosling   
+        
+                                                    name  num\_speaker  published\_date  \textbackslash{}
+        0      Ken Robinson: Do schools kill creativity?            1      1151367060   
+        1           Al Gore: Averting the climate crisis            1      1151367060   
+        2                  David Pogue: Simplicity sells            1      1151367060   
+        3             Majora Carter: Greening the ghetto            1      1151367060   
+        4  Hans Rosling: The best stats you've ever seen            1      1151440680   
+        
+                                                     ratings  \textbackslash{}
+        0  [\{'id': 7, 'name': 'Funny', 'count': 19645\}, \{{\ldots}   
+        1  [\{'id': 7, 'name': 'Funny', 'count': 544\}, \{'i{\ldots}   
+        2  [\{'id': 7, 'name': 'Funny', 'count': 964\}, \{'i{\ldots}   
+        3  [\{'id': 3, 'name': 'Courageous', 'count': 760\}{\ldots}   
+        4  [\{'id': 9, 'name': 'Ingenious', 'count': 3202\}{\ldots}   
+        
+                                               related\_talks  \textbackslash{}
+        0  [\{'id': 865, 'hero': 'https://pe.tedcdn.com/im{\ldots}   
+        1  [\{'id': 243, 'hero': 'https://pe.tedcdn.com/im{\ldots}   
+        2  [\{'id': 1725, 'hero': 'https://pe.tedcdn.com/i{\ldots}   
+        3  [\{'id': 1041, 'hero': 'https://pe.tedcdn.com/i{\ldots}   
+        4  [\{'id': 2056, 'hero': 'https://pe.tedcdn.com/i{\ldots}   
+        
+                             speaker\_occupation  \textbackslash{}
+        0                       Author/educator   
+        1                      Climate advocate   
+        2                  Technology columnist   
+        3    Activist for environmental justice   
+        4  Global health expert; data visionary   
+        
+                                                        tags  \textbackslash{}
+        0  ['children', 'creativity', 'culture', 'dance',{\ldots}   
+        1  ['alternative energy', 'cars', 'climate change{\ldots}   
+        2  ['computers', 'entertainment', 'interface desi{\ldots}   
+        3  ['MacArthur grant', 'activism', 'business', 'c{\ldots}   
+        4  ['Africa', 'Asia', 'Google', 'demo', 'economic{\ldots}   
+        
+                                     title  \textbackslash{}
+        0      Do schools kill creativity?   
+        1      Averting the climate crisis   
+        2                 Simplicity sells   
+        3              Greening the ghetto   
+        4  The best stats you've ever seen   
+        
+                                                         url     views  
+        0  https://www.ted.com/talks/ken\_robinson\_says\_sc{\ldots}  47227110  
+        1  https://www.ted.com/talks/al\_gore\_on\_averting\_{\ldots}   3200520  
+        2  https://www.ted.com/talks/david\_pogue\_says\_sim{\ldots}   1636292  
+        3  https://www.ted.com/talks/majora\_carter\_s\_tale{\ldots}   1697550  
+        4  https://www.ted.com/talks/hans\_rosling\_shows\_t{\ldots}  12005869  
+\end{Verbatim}
+            
+    \subsection{Set from Kaggle}\label{set-from-kaggle}
+
+\begin{itemize}
+\tightlist
+\item
+  Extracting the dates from the set
+\item
+  Removing useless columns
+\item
+  Extracting the years from the set
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{film\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{film\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{unit}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{published\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{published\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{unit}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}ted}\PY{o}{=}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{published\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{film\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{event}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{languages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{main\PYZus{}speaker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DatetimeIndex}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{film\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{year}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{How many TED Talks about
+science?}\label{how-many-ted-talks-about-science}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x112301908>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{year}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} 2013    270
+         2011    270
+         2010    267
+         2012    267
+         2016    246
+         2015    239
+         2014    237
+         2009    232
+         2007    114
+         2017     98
+         2008     84
+         2005     66
+         2006     50
+         2003     33
+         2004     33
+         2002     27
+         1998      6
+         2001      5
+         1983      1
+         1991      1
+         1994      1
+         1990      1
+         1984      1
+         1972      1
+         Name: year, dtype: int64
+\end{Verbatim}
+            
+    \section{De top 5 meest populaire
+tags}\label{de-top-5-meest-populaire-tags}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{tags} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{tags}\PY{o}{.}\PY{n}{tag} \PY{o}{=} \PY{n}{tags}\PY{o}{.}\PY{n}{tag}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{[}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{tags}\PY{o}{.}\PY{n}{tag} \PY{o}{=} \PY{n}{tags}\PY{o}{.}\PY{n}{tag}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{tags}\PY{o}{.}\PY{n}{tag} \PY{o}{=} \PY{n}{tags}\PY{o}{.}\PY{n}{tag}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{tags}\PY{o}{.}\PY{n}{tag} \PY{o}{=} \PY{n}{tags}\PY{o}{.}\PY{n}{tag}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{tags\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{tags}\PY{o}{.}\PY{n}{tag}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{tags\PYZus{}df}\PY{o}{=}\PY{n}{tags\PYZus{}df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aantal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{tags\PYZus{}df}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}          aantal
+         global      541
+         science     530
+         issues      480
+         design      480
+         health      461
+\end{Verbatim}
+            
+    \subsection{Putting the tags in a
+cloud.}\label{putting-the-tags-in-a-cloud.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{mpl}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{12}                 
+         \PY{n}{mpl}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{savefig.dpi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{100}              
+         \PY{n}{mpl}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.subplot.bottom}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{1} 
+         
+         \PY{n}{data} \PY{o}{=} \PY{n}{tags}
+         
+         \PY{n}{wordcloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}
+                                   \PY{n}{background\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                   \PY{n}{max\PYZus{}words}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                                   \PY{n}{max\PYZus{}font\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} 
+                                   \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}
+                                  \PY{p}{)}\PY{o}{.}\PY{n}{generate}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tag}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{wordcloud}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wordcloud}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{word1.png}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dpi}\PY{o}{=}\PY{l+m+mi}{900}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<wordcloud.wordcloud.WordCloud object at 0x1131ea5c0>
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{x}\PY{o}{=}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{comments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x113223f28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{25}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}           published\_date           film\_date  comments  \textbackslash{}
+         640  2010-03-16 17:54:00 2001-05-16 00:00:00       101   
+         588  2010-01-08 11:32:00 2007-09-18 00:00:00       124   
+         629  2010-03-03 15:57:00 1983-07-08 17:00:00       146   
+         2387 2017-02-20 15:35:24 2017-02-15 00:00:00       345   
+         594  2010-01-14 15:04:00 2004-10-13 00:00:00        20   
+         600  2010-01-23 13:10:00 1991-12-20 14:11:00       133   
+         580  2009-12-23 12:46:00 2005-09-01 00:00:00       307   
+         2421 2017-04-03 21:50:55 2017-03-01 00:00:00        42   
+         947  2011-05-30 16:51:00 2009-10-06 00:00:00       121   
+         202  2008-03-13 01:38:00 1990-03-03 00:00:00         9   
+         2441 2017-04-30 23:58:03 2017-04-24 00:00:00       250   
+         589  2010-01-08 14:39:00 2009-09-08 15:40:00       204   
+         226  2008-05-08 04:00:00 2002-03-03 00:00:00        82   
+         180  2008-01-20 23:05:00 2002-02-02 00:00:00        95   
+         1701 2014-03-19 00:01:02 2014-03-18 00:00:00       421   
+         40   2006-10-31 00:11:00 2005-02-17 00:00:00        58   
+         354  2008-12-16 07:32:00 2005-07-07 00:00:00       230   
+         1704 2014-03-21 00:46:29 2014-03-20 00:00:00       440   
+         89   2007-04-06 17:51:00 2003-02-02 00:00:00       296   
+         206  2008-03-24 01:36:00 2007-01-01 00:00:00        67   
+         285  2008-09-04 07:19:00 2007-12-12 00:00:00        62   
+         276  2008-08-20 01:00:00 2005-02-02 00:00:00       109   
+         150  2007-10-09 06:17:00 2007-03-03 00:00:00        80   
+         146  2007-09-25 03:07:00 2002-02-02 00:00:00       169   
+         360  2009-01-05 01:00:00 2002-02-02 00:00:00       116   
+         
+                                                     description  duration  \textbackslash{}
+         640   Blind river dolphins, reclusive lemurs, a parr{\ldots}      5256   
+         588   In 2007, Carnegie Mellon professor Randy Pausc{\ldots}      4587   
+         629   In this archival footage from BBC TV, celebrat{\ldots}      3955   
+         2387  How do we make sense of today's political divi{\ldots}      3608   
+         594   In the midst of an earlier crisis, Haitian aut{\ldots}      3573   
+         600   At the Royal Institution in 1991, Richard Dawk{\ldots}      3475   
+         580   Is torture ever justified? Would you steal a d{\ldots}      3296   
+         2421  How can we bridge the gap between left and rig{\ldots}      2853   
+         947   How does one find authentic creativity? In his{\ldots}      2761   
+         202   Before he was a legend, architect Frank Gehry {\ldots}      2678   
+         2441  Elon Musk discusses his new project digging tu{\ldots}      2450   
+         589   At Stanford University, primatologist Robert S{\ldots}      2246   
+         226   Michael Moschen puts on a quietly mesmerizing {\ldots}      2222   
+         180   Bill Strickland tells a quiet and astonishing {\ldots}      2128   
+         1701  Appearing by telepresence robot, Edward Snowde{\ldots}      2102   
+         40    Accepting his 2005 TED Prize, photographer Edw{\ldots}      2065   
+         354   Dan Gilbert presents research and data from hi{\ldots}      2018   
+         1704  After a surprise appearance by Edward Snowden {\ldots}      2010   
+         89    In this soaring demonstration, deaf percussion{\ldots}      1929   
+         206   Architect Norman Foster discusses his own work{\ldots}      1917   
+         285   In this absorbing look at emerging media and t{\ldots}      1899   
+         276   Like your uncle at a family party, the rumpled{\ldots}      1868   
+         150   Richard Branson talks to TED's Chris Anderson {\ldots}      1791   
+         146   How might the human race end? Stephen Petranek{\ldots}      1782   
+         360   Biochemist Kary Mullis talks about the basis o{\ldots}      1772   
+         
+                                     event  languages                    main\_speaker  \textbackslash{}
+         640      University of California          0                   Douglas Adams   
+         588    Carnegie Mellon University          0                    Randy Pausch   
+         629                        BBC TV          0                 Richard Feynman   
+         2387                TED Dialogues         19               Yuval Noah Harari   
+         594      University of California          0                Edwidge Danticat   
+         600             Royal Institution          0                 Richard Dawkins   
+         580   Justice with Michael Sandel          0                  Michael Sandel   
+         2421                TED Dialogues          5  Gretchen Carlson, David Brooks   
+         947             Handheld Learning          0                 Malcolm McLaren   
+         202                       TED1990         19                     Frank Gehry   
+         2441                      TED2017         21                       Elon Musk   
+         589           Stanford University          0                 Robert Sapolsky   
+         226                       TED2002         18                 Michael Moschen   
+         180                       TED2002         19                 Bill Strickland   
+         1701                      TED2014         31                  Edward Snowden   
+         40                        TED2005         22                Edward Burtynsky   
+         354                TEDGlobal 2005         31                     Dan Gilbert   
+         1704                      TED2014         22                 Richard Ledgett   
+         89                        TED2003         32                  Evelyn Glennie   
+         206                      DLD 2007         23                   Norman Foster   
+         285                       EG 2007         17                 Peter Hirshberg   
+         276                       TED2005         21                   Lennart Green   
+         150                       TED2007         29                 Richard Branson   
+         146                       TED2002         22                Stephen Petranek   
+         360                       TED2002         19                     Kary Mullis   
+         
+                                                           title  \textbackslash{}
+         640                Parrots, the universe and everything   
+         588              Really achieving your childhood dreams   
+         629                           Physics is fun to imagine   
+         2387  Nationalism vs. globalism: the new political d{\ldots}   
+         594                                    Stories of Haiti   
+         600                          Growing up in the universe   
+         580                       What's the right thing to do?   
+         2421  Political common ground in a polarized United {\ldots}   
+         947            Authentic creativity vs. karaoke culture   
+         202                            My days as a young rebel   
+         2441            The future we're building -- and boring   
+         589                            The uniqueness of humans   
+         226                     Juggling as art {\ldots} and science   
+         180   Rebuilding a neighborhood with beauty, dignity{\ldots}   
+         1701               Here's how we take back the Internet   
+         40    My wish: Manufactured landscapes and green edu{\ldots}   
+         354                           Why we make bad decisions   
+         1704      The NSA responds to Edward Snowden's TED Talk   
+         89                                  How to truly listen   
+         206                    My green agenda for architecture   
+         285                    The web is more than "better TV"   
+         276                    Close-up card magic with a twist   
+         150                                 Life at 30,000 feet   
+         146                         10 ways the world could end   
+         360                         Play! Experiment! Discover!   
+         
+                                                            tags    views  year  
+         640   ['biodiversity', 'biology', 'comedy', 'humor',{\ldots}   473220  2001  
+         588   ['culture', 'disease', 'education', 'life', 's{\ldots}   564781  2007  
+         629                 ['astronomy', 'physics', 'science']   521974  1983  
+         2387  ['big problems', 'climate change', 'collaborat{\ldots}  1514291  2017  
+         594   ['books', 'disaster relief', 'novel', 'poetry'{\ldots}    50443  2004  
+         600   ['biology', 'evolution', 'life', 'science', 'u{\ldots}   318423  1991  
+         580     ['government', 'law', 'philosophy', 'politics']   393459  2005  
+         2421  ['United States', 'collaboration', 'communicat{\ldots}   890478  2017  
+         947          ['creativity', 'culture', 'entertainment']   251313  2009  
+         202   ['architecture', 'collaboration', 'design', 'g{\ldots}   620806  1990  
+         2441  ['Mars', 'aircraft', 'business', 'cities', 'de{\ldots}  5666038  2017  
+         589   ['biology', 'brain', 'humanity', 'life', 'mind{\ldots}   572845  2009  
+         226   ['MacArthur grant', 'dance', 'entertainment', {\ldots}   944836  2002  
+         180   ['MacArthur grant', 'activism', 'children', 'c{\ldots}   611092  2002  
+         1701  ['Internet', 'Surveillance', 'journalism', 'law']  4040280  2014  
+         40    ['TED Prize', 'art', 'cities', 'culture', 'des{\ldots}   975107  2005  
+         354   ['TED Brain Trust', 'brain', 'choice', 'cultur{\ldots}  3707266  2005  
+         1704  ['Surveillance', 'culture', 'global issues', '{\ldots}  1191342  2014  
+         89    ['creativity', 'entertainment', 'live music', {\ldots}  4165572  2003  
+         206                 ['architecture', 'cities', 'green']   763815  2007  
+         285   ['business', 'history', 'media', 'technology',{\ldots}   250722  2007  
+         276     ['entertainment', 'humor', 'illusion', 'magic']  4204848  2005  
+         150   ['aircraft', 'business', 'entertainment', 'ent{\ldots}  1609555  2007  
+         146   ['asteroid', 'climate change', 'future', 'glob{\ldots}  1712075  2002  
+         360   ['DNA', 'biology', 'curiosity', 'history', 'mi{\ldots}   532759  2002  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{main\PYZus{}speaker}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{Het geslacht van de sprekers
+bepalen.}\label{het-geslacht-van-de-sprekers-bepalen.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{import} \PY{n+nn}{gender\PYZus{}guesser}\PY{n+nn}{.}\PY{n+nn}{detector} \PY{k}{as} \PY{n+nn}{gender}
+         \PY{n}{d} \PY{o}{=} \PY{n}{gender}\PY{o}{.}\PY{n}{Detector}\PY{p}{(}\PY{p}{)}
+         \PY{n}{data} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{first name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+         \PY{n}{gender} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{data}\PY{p}{:}
+             \PY{n}{gender}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{d}\PY{o}{.}\PY{n}{get\PYZus{}gender}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{gender}
+         \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mostly\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} male       1528
+         female      697
+         unknown     292
+         andy         33
+         Name: gender, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66ada6dd8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{andy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x11a23a198>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66d85d780>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{duration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x11a28fa90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_27_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{languages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x11a255390>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: health}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{health}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{health}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over health per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66abf8a90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp:health hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{health}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{health}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: health}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66adf9358>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: economics}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{economics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{economics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over economics per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66ae513c8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: economics hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{economics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{economics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: economics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66ae826d8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_32_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: science}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over science per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66af1ada0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: science hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: science}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66afe7e10>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: culture}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{culture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{culture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over culture per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b01ea90>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: culture hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{culture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{culture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: culture}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66e929400>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_36_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: environment}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{environment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{environment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over environment per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b119240>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: environment hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{environment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{environment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: environment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b0348d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: global}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over global per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b242e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:}           published\_date  film\_date  comments  \textbackslash{}
+         17   2006-08-15 00:11:00 2006-02-24        88   
+         24   2006-09-06 00:11:00 2004-02-04       117   
+         34   2006-10-10 00:11:00 2005-07-01        58   
+         66   2007-04-05 00:11:00 2002-03-01       161   
+         122  2007-07-12 06:19:00 2007-03-03       136   
+         133  2007-08-12 15:00:00 2007-06-05       106   
+         143  2007-09-13 07:00:00 2007-03-03       164   
+         155  2007-10-25 01:00:00 2007-06-06        64   
+         172  2008-01-03 06:00:00 2007-03-03       465   
+         201  2008-03-12 01:10:00 2008-02-27      2877   
+         204  2008-03-19 01:00:00 2008-02-28       456   
+         228  2008-05-14 01:35:00 2008-03-03       211   
+         280  2008-08-27 01:00:00 2007-02-02       174   
+         287  2008-09-08 01:00:00 2007-06-06        62   
+         293  2008-09-16 01:00:00 2007-12-12       219   
+         295  2008-09-18 01:00:00 2005-07-07        97   
+         318  2008-10-24 01:00:00 2003-02-28        40   
+         335  2008-11-11 01:00:00 2008-02-02        45   
+         359  2008-12-24 01:00:00 2008-07-07        84   
+         411  2009-03-24 01:00:00 2009-02-02       119   
+         444  2009-05-07 01:00:00 2009-02-05       277   
+         457  2009-05-27 01:00:00 2009-04-04       313   
+         477  2009-06-25 01:00:00 2007-03-10        42   
+         522  2009-09-25 01:00:00 2009-06-03        52   
+         525  2009-09-29 12:46:00 2009-07-24       311   
+         528  2009-10-05 01:00:00 2009-07-22       111   
+         544  2009-10-27 09:03:00 2009-07-24       156   
+         550  2009-11-10 09:02:00 2009-07-24       124   
+         552  2009-11-13 01:00:00 2009-07-07        70   
+         561  2009-11-26 01:00:00 2009-11-04       595   
+         {\ldots}                  {\ldots}        {\ldots}       {\ldots}   
+         2147 2016-02-25 16:02:43 2015-11-18        57   
+         2170 2016-03-28 15:22:30 2016-02-18        93   
+         2186 2016-04-18 14:55:20 2016-02-17       107   
+         2209 2016-05-19 15:09:27 2016-01-30       212   
+         2216 2016-05-31 15:08:32 2016-02-19        39   
+         2217 2016-06-01 15:10:18 2015-11-04        71   
+         2226 2016-06-14 15:22:06 2015-11-04        49   
+         2230 2016-06-20 14:44:13 2016-05-24        43   
+         2232 2016-06-22 14:54:41 2016-05-18        73   
+         2249 2016-07-18 15:06:40 2016-05-18        65   
+         2259 2016-08-15 15:08:11 2016-06-29        74   
+         2261 2016-08-17 15:07:50 2016-06-27        44   
+         2269 2016-08-29 15:34:06 2016-06-29        20   
+         2278 2016-09-12 15:02:58 2016-05-18        84   
+         2287 2016-09-23 14:17:46 2016-06-29        35   
+         2308 2016-10-21 15:10:17 2016-09-07        38   
+         2354 2017-01-04 16:10:26 2016-10-28        92   
+         2363 2017-01-18 15:55:34 2016-10-27       360   
+         2364 2017-01-19 15:57:51 2016-05-24        14   
+         2370 2017-01-27 16:04:51 2016-10-26        29   
+         2371 2017-01-30 15:48:37 2016-02-15        20   
+         2384 2017-02-15 16:07:49 2017-01-26        93   
+         2390 2017-02-23 15:49:58 2016-11-15        22   
+         2404 2017-03-14 14:38:51 2016-02-15        33   
+         2411 2017-03-22 15:17:38 2015-11-14        12   
+         2436 2017-04-24 15:12:07 2017-02-11        53   
+         2442 2017-05-02 15:15:50 2017-04-07        92   
+         2443 2017-05-03 14:56:04 2017-04-24        80   
+         2459 2017-05-25 14:53:13 2016-10-21        35   
+         2482 2017-06-23 14:40:07 2017-04-24        66   
+         
+                                                     description  duration  \textbackslash{}
+         17    Fumes from indoor cooking fires kill more than{\ldots}       906   
+         24    Eve Ensler, creator of "The Vagina Monologues,{\ldots}      1225   
+         34    Jacqueline Novogratz applauds the world's heig{\ldots}       773   
+         66    Jane Goodall hasn't found the missing link, bu{\ldots}      1645   
+         122   Emily Oster re-examines the stats on AIDS in A{\ldots}       934   
+         133   Jacqueline Novogratz shares stories of how "pa{\ldots}      1103   
+         143   Filmmaker Deborah Scranton talks about and sho{\ldots}      1056   
+         155   Economist Eleni Gabre-Madhin outlines her ambi{\ldots}      1234   
+         172   Author and activist Isabel Allende discusses w{\ldots}      1080   
+         201   Jill Bolte Taylor got a research opportunity f{\ldots}      1099   
+         204   People want to be religious, says scholar Kare{\ldots}      1288   
+         228   Alisa Miller, head of Public Radio Internation{\ldots}       269   
+         280   Speaking at LIFT 2007, Sugata Mitra talks abou{\ldots}      1259   
+         287   The legendary chimpanzee researcher Jane Gooda{\ldots}      1426   
+         293   Speaking at the 2007 EG conference, "renegade {\ldots}      1182   
+         295   Playwright Eve Ensler explores our modern crav{\ldots}       825   
+         318   In this moving talk, documentary photographer {\ldots}       277   
+         335   Would you negotiate with someone you knew to b{\ldots}      1389   
+         359   Reporter Jennifer 8. Lee talks about her hunt {\ldots}       998   
+         411   Jacqueline Novogratz tells a moving story of  {\ldots}       450   
+         444   Louise Fresco shows us why we should celebrate{\ldots}      1080   
+         457   Speaking to an audience of students, US First {\ldots}       749   
+         477   In this uplifting talk, Katherine Fulton sketc{\ldots}       754   
+         522   The debate over foreign aid often pits those w{\ldots}      1024   
+         525   Weeks from the Charter for Compassion launch, {\ldots}       594   
+         528   Every day, in a city the size of London, 30 mi{\ldots}       940   
+         544   Venice is sinking. To save it, Rachel Armstron{\ldots}       452   
+         550   In 4 minutes, atmospheric chemist Rachel Pike {\ldots}       253   
+         552   Cynthia Schneider looks at two international "{\ldots}       337   
+         561   At TEDIndia, Mallika Sarabhai, a dancer/actor/{\ldots}      1012   
+         {\ldots}                                                 {\ldots}       {\ldots}   
+         2147  In Zimbabwe in the 1980s, Mary Bassett witness{\ldots}       829   
+         2170  Angélica Dass's photography challenges how we {\ldots}       687   
+         2186  What would you do if your job was to save the {\ldots}       891   
+         2209  Everyone has an opinion about how to legislate{\ldots}      1070   
+         2216  Sue Desmond-Hellmann is using precision public{\ldots}       858   
+         2217  In some parts of the world, it's easier to get{\ldots}       814   
+         2226  We're not going to end violence by telling peo{\ldots}       537   
+         2230  Gill Hicks's story is one of compassion and hu{\ldots}       637   
+         2232  Seema Bansal forged a path to public education{\ldots}       868   
+         2249  We're heading for a world population of 10 bil{\ldots}       715   
+         2259  How do we build a society without fossil fuels{\ldots}       952   
+         2261  Around the world, hundreds of thousands of los{\ldots}       419   
+         2269  Are you setting out to change the world? Here'{\ldots}       747   
+         2278  What happens when the way we buy, sell and pay{\ldots}       976   
+         2287  Can we fight terror without destroying democra{\ldots}       716   
+         2308  How do you teach an entire country how to vote{\ldots}       651   
+         2354  Today nine nations collectively control more t{\ldots}       899   
+         2363  Enough with online hate speech, sexual harassm{\ldots}       970   
+         2364  Emily Parsons-Lord re-creates air from distinc{\ldots}       649   
+         2370  Deepika Kurup has been determined to solve the{\ldots}       479   
+         2371  Sarah Parcak uses satellites orbiting hundreds{\ldots}      1308   
+         2384  Something is very wrong with the news industry{\ldots}       517   
+         2390  Charity Wayua put her skills as a cancer resea{\ldots}       711   
+         2404  TED Fellow Carrie Nugent is an asteroid hunter{\ldots}       366   
+         2411  In a war, it turns out that violence isn't the{\ldots}       861   
+         2436  On April 14, 2014, the terrorist organization {\ldots}       386   
+         2442  "There are facts, there are opinions, and ther{\ldots}       930   
+         2443  Hacking, fake news, information bubbles {\ldots} al{\ldots}       573   
+         2459  Where did Zika come from, and what can we do a{\ldots}       910   
+         2482  "We have seen advances in every aspect of our {\ldots}       853   
+         
+                                      event  languages          main\_speaker  \textbackslash{}
+         17                         TED2006         27             Amy Smith   
+         24                         TED2004         23            Eve Ensler   
+         34                  TEDGlobal 2005         26  Jacqueline Novogratz   
+         66                         TED2002         31          Jane Goodall   
+         122                        TED2007         22           Emily Oster   
+         133                 TEDGlobal 2007         26  Jacqueline Novogratz   
+         143                        TED2007         19      Deborah Scranton   
+         155                 TEDGlobal 2007         21    Eleni Gabre-Madhin   
+         172                        TED2007         38        Isabel Allende   
+         201                        TED2008         49     Jill Bolte Taylor   
+         204                        TED2008         30       Karen Armstrong   
+         228                        TED2008         49          Alisa Miller   
+         280                      LIFT 2007         30          Sugata Mitra   
+         287                 TEDGlobal 2007         26          Jane Goodall   
+         293                        EG 2007         26            Ann Cooper   
+         295                 TEDGlobal 2005         27            Eve Ensler   
+         318                        TED2003         32       Kristen Ashburn   
+         335                        TED2008         20        Samantha Power   
+         359                    Taste3 2008         19       Jennifer 8. Lee   
+         411                        TED2009         35  Jacqueline Novogratz   
+         444                        TED2009         22         Louise Fresco   
+         457   Elizabeth G. Anderson School         39        Michelle Obama   
+         477                        TED2007         26      Katherine Fulton   
+         522                      TED@State         24  Jacqueline Novogratz   
+         525                 TEDGlobal 2009         30       Karen Armstrong   
+         528                 TEDGlobal 2009         31         Carolyn Steel   
+         544                 TEDGlobal 2009         28      Rachel Armstrong   
+         550                 TEDGlobal 2009         31           Rachel Pike   
+         552                 TEDGlobal 2009         29     Cynthia Schneider   
+         561                  TEDIndia 2009         23      Mallika Sarabhai   
+         {\ldots}                            {\ldots}        {\ldots}                   {\ldots}   
+         2147                   TEDMED 2015         22          Mary Bassett   
+         2170                       TED2016         30         Angélica Dass   
+         2186                       TED2016         24   Christiana Figueres   
+         2209                   TEDxEastEnd         23              Juno Mac   
+         2216                       TED2016         23  Sue Desmond-Hellmann   
+         2217                TED Talks Live         23         Samantha Nutt   
+         2226                TED Talks Live         29          Jamila Raqib   
+         2230                    TEDxSydney         35            Gill Hicks   
+         2232                 TED@BCG Paris         27          Seema Bansal   
+         2249                 TED@BCG Paris         24            Lisa Dyson   
+         2259                     TEDSummit         30          Monica Araya   
+         2261                     TEDSummit         31          Sarah Parcak   
+         2269                     TEDSummit         27           Julia Bacha   
+         2278                 TED@BCG Paris         24           Neha Narula   
+         2287                     TEDSummit         21     Rebecca MacKinnon   
+         2308                        TEDNYC         20        Philippa Neave   
+         2354                 TEDWomen 2016         18         Erika Gregory   
+         2363                 TEDWomen 2016         17           Ashley Judd   
+         2364              TEDxYouth@Sydney         19    Emily Parsons-Lord   
+         2370                 TEDWomen 2016         32         Deepika Kurup   
+         2371                       TED2016         17          Sarah Parcak   
+         2384                        TEDNYC         23        Lara Setrakian   
+         2390                       TED@IBM         22         Charity Wayua   
+         2404                       TED2016         23         Carrie Nugent   
+         2411              TEDxBeaconStreet         16    Margaret Bourdeaux   
+         2436         TEDLagos Ideas Search         29      Stephanie Busari   
+         2442                     TEDxSkoll         16      Deborah Lipstadt   
+         2443                       TED2017         16         Laura Galante   
+         2459               TEDxMidAtlantic         11         Nina Fedoroff   
+         2482                       TED2017         15           Luma Mufleh   
+         
+                                                           title  \textbackslash{}
+         17                        Simple designs to save a life   
+         24                           Happiness in body and soul   
+         34                     Invest in Africa's own solutions   
+         66                  What separates us from chimpanzees?   
+         122                Flip your thinking on AIDS in Africa   
+         133                                  Patient capitalism   
+         143       An Iraq war movie crowd-sourced from soldiers   
+         155                 A commodities exchange for Ethiopia   
+         172                                    Tales of passion   
+         201                                My stroke of insight   
+         204                 My wish: The Charter for Compassion   
+         228                 How the news distorts our worldview   
+         280                           Kids can teach themselves   
+         287            How humans and animals can live together   
+         293                    What's wrong with school lunches   
+         295                           What security means to me   
+         318                          The face of AIDS in Africa   
+         335       A complicated hero in the war on dictatorship   
+         359                            The hunt for General Tso   
+         411                              An escape from poverty   
+         444                     We need to feed the whole world   
+         457           A passionate, personal case for education   
+         477                  You are the future of philanthropy   
+         522                      A third way to think about aid   
+         525                        Let's revive the Golden Rule   
+         528                          How food shapes our cities   
+         544                   Architecture that repairs itself?   
+         550               The science behind a climate headline   
+         552                    The surprising spread of Idol TV   
+         561                           Dance to change the world   
+         {\ldots}                                                 {\ldots}   
+         2147   Why your doctor should care about social justice   
+         2170            The beauty of human skin in every color   
+         2186    The inside story of the Paris climate agreement   
+         2209              The laws that sex workers really want   
+         2216  A smarter, more precise way to think about pub{\ldots}   
+         2217             The real harm of the global arms trade   
+         2226      The secret to effective nonviolent resistance   
+         2230  I survived a terrorist attack. Here's what I l{\ldots}   
+         2232  How to fix a broken education system {\ldots} witho{\ldots}   
+         2249  A forgotten Space Age technology could change {\ldots}   
+         2259  A small country with big ideas to get rid of f{\ldots}   
+         2261  Hunting for Peru's lost civilizations -- with {\ldots}   
+         2269           How women wage conflict without violence   
+         2278                                The future of money   
+         2287  We can fight terror without sacrificing our ri{\ldots}   
+         2308  The unexpected challenges of a country's first{\ldots}   
+         2354        The world doesn't need more nuclear weapons   
+         2363  How online abuse of women has spiraled out of {\ldots}   
+         2364                     Art made of the air we breathe   
+         2370          A young scientist's quest for clean water   
+         2371  Help discover ancient ruins -- before it's too{\ldots}   
+         2384               3 ways to fix a broken news industry   
+         2390                     A few ways to fix a government   
+         2404                   Adventures of an asteroid hunter   
+         2411       Why civilians suffer more once a war is over   
+         2436                       How fake news does real harm   
+         2442                Behind the lies of Holocaust denial   
+         2443        How (and why) Russia hacked the US election   
+         2459  A secret weapon against Zika and other mosquit{\ldots}   
+         2482   Don't feel sorry for refugees -- believe in them   
+         
+                                                            tags     views  year  \textbackslash{}
+         17    ['MacArthur grant', 'alternative energy', 'des{\ldots}   1415724  2006   
+         24    ['culture', 'entertainment', 'gender', 'global{\ldots}   1131864  2004   
+         34    ['Africa', 'TED Brain Trust', 'business', 'cul{\ldots}    705389  2005   
+         66    ['Africa', 'animals', 'culture', 'environment'{\ldots}   1663001  2002   
+         122   ['AIDS', 'Africa', 'economics', 'global issues{\ldots}    854967  2007   
+         133   ['business', 'global development', 'global iss{\ldots}    836269  2007   
+         143   ['entertainment', 'film', 'global issues', 'st{\ldots}    507997  2007   
+         155   ['business', 'economics', 'food', 'global issu{\ldots}    562457  2007   
+         172   ['South America', 'entertainment', 'global iss{\ldots}   3741423  2007   
+         201   ['biology', 'brain', 'consciousness', 'global {\ldots}  21190883  2008   
+         204   ['TED Prize', 'collaboration', 'faith', 'globa{\ldots}   1277619  2008   
+         228   ['Google', 'business', 'economics', 'entertain{\ldots}   1888717  2008   
+         280   ['children', 'cities', 'culture', 'education',{\ldots}   1486853  2007   
+         287   ['Africa', 'animals', 'biodiversity', 'environ{\ldots}    556147  2007   
+         293   ['children', 'economics', 'education', 'food',{\ldots}   1137771  2007   
+         295   ['activism', 'culture', 'global issues', 'spok{\ldots}   1074170  2005   
+         318   ['AIDS', 'Africa', 'activism', 'disease', 'glo{\ldots}    352285  2003   
+         335   ['communication', 'global issues', 'morality',{\ldots}    456095  2008   
+         359   ['Asia', 'business', 'culture', 'exploration',{\ldots}   1285775  2008   
+         411   ['activism', 'business', 'culture', 'global is{\ldots}    943565  2009   
+         444   ['activism', 'agriculture', 'business', 'consu{\ldots}    922158  2009   
+         457   ['culture', 'education', 'global issues', 'pol{\ldots}   1026589  2009   
+         477   ['activism', 'community', 'global issues', 'ph{\ldots}    437529  2007   
+         522   ['Africa', 'business', 'economics', 'global de{\ldots}    436147  2009   
+         525   ['God', 'TED Prize', 'global issues', 'politic{\ldots}    732390  2009   
+         528   ['ancient world', 'cities', 'culture', 'food',{\ldots}   1014285  2009   
+         544   ['architecture', 'art', 'biology', 'design', '{\ldots}   1095398  2009   
+         550   ['chemistry', 'climate change', 'environment',{\ldots}    470615  2009   
+         552   ['culture', 'entertainment', 'global issues', {\ldots}    441609  2009   
+         561   ['culture', 'dance', 'entertainment', 'global {\ldots}    481834  2009   
+         {\ldots}                                                 {\ldots}       {\ldots}   {\ldots}   
+         2147  ['AIDS', 'Africa', 'TEDMED', 'United States', {\ldots}   1072558  2015   
+         2170  ['Brazil', 'Slavery', 'art', 'beauty', 'commun{\ldots}   1961502  2016   
+         2186  ['alternative energy', 'big problems', 'climat{\ldots}   1031398  2016   
+         2209  ['TEDx', 'activism', 'community', 'empathy', '{\ldots}   1811102  2016   
+         2216  ['Africa', 'HIV', 'big problems', 'communicati{\ldots}    929167  2016   
+         2217  ['Africa', 'Guns', 'activism', 'big problems',{\ldots}   1049990  2015   
+         2226  ['big problems', 'collaboration', 'communicati{\ldots}    878864  2015   
+         2230  ['TEDx', 'activism', 'community', 'compassion'{\ldots}    813426  2016   
+         2232  ['children', 'communication', 'community', 'ed{\ldots}   1246214  2016   
+         2249  ['agriculture', 'astrobiology', 'bacteria', 'b{\ldots}   1258539  2016   
+         2259  ['Natural resources', 'activism', 'alternative{\ldots}   1018830  2016   
+         2261  ['South America', 'TED Fellows', 'TED Prize', {\ldots}   1027539  2016   
+         2269  ['global issues', 'history', 'nonviolence', 'p{\ldots}    811955  2016   
+         2278  ['Internet', 'business', 'capitalism', 'comput{\ldots}   1799860  2016   
+         2287  ['Internet', 'Middle East', 'Surveillance', 'c{\ldots}   1053126  2016   
+         2308  ['TEDNYC', 'choice', 'communication', 'democra{\ldots}    859817  2016   
+         2354  ['collaboration', 'fear', 'global issues', 'go{\ldots}    899560  2016   
+         2363  ['Gender equality', 'Internet', 'activism', 'b{\ldots}   1422701  2016   
+         2364  ['Anthropocene', 'TEDx', 'ancient world', 'ani{\ldots}    827288  2016   
+         2370  ['bacteria', 'big problems', 'chemistry', 'chi{\ldots}    958917  2016   
+         2371  ['Egypt', 'Middle East', 'South America', 'TED{\ldots}    799873  2016   
+         2384  ['Internet', 'Middle East', 'Syria', 'TEDNYC',{\ldots}    942996  2017   
+         2390  ['Africa', 'business', 'cancer', 'collaboratio{\ldots}    952784  2016   
+         2404  ['NASA', 'TED Books', 'TED Fellows', 'adventur{\ldots}    976473  2016   
+         2411  ['TEDx', 'community', 'disaster relief', 'ebol{\ldots}    869734  2015   
+         2436  ['Africa', 'communication', 'community', 'glob{\ldots}   1036236  2017   
+         2442  ['TEDx', 'communication', 'global issues', 'hi{\ldots}    918385  2017   
+         2443  ['Internet', 'algorithm', 'communication', 'co{\ldots}   1132913  2017   
+         2459  ['TEDx', 'biology', 'biotech', 'disease', 'env{\ldots}    841955  2016   
+         2482  ['children', 'global issues', 'humanity', 'ide{\ldots}   1354522  2017   
+         
+               first name  gender  
+         17           Amy  female  
+         24           Eve  female  
+         34    Jacqueline  female  
+         66          Jane  female  
+         122        Emily  female  
+         133   Jacqueline  female  
+         143      Deborah  female  
+         155        Eleni  female  
+         172       Isabel  female  
+         201         Jill  female  
+         204        Karen  female  
+         228        Alisa  female  
+         280       Sugata  female  
+         287         Jane  female  
+         293          Ann  female  
+         295          Eve  female  
+         318      Kristen  female  
+         335     Samantha  female  
+         359     Jennifer  female  
+         411   Jacqueline  female  
+         444       Louise  female  
+         457     Michelle  female  
+         477    Katherine  female  
+         522   Jacqueline  female  
+         525        Karen  female  
+         528      Carolyn  female  
+         544       Rachel  female  
+         550       Rachel  female  
+         552      Cynthia  female  
+         561      Mallika  female  
+         {\ldots}          {\ldots}     {\ldots}  
+         2147        Mary  female  
+         2170    Angélica  female  
+         2186  Christiana  female  
+         2209        Juno  female  
+         2216         Sue  female  
+         2217    Samantha  female  
+         2226      Jamila  female  
+         2230        Gill  female  
+         2232       Seema  female  
+         2249        Lisa  female  
+         2259      Monica  female  
+         2261       Sarah  female  
+         2269       Julia  female  
+         2278        Neha  female  
+         2287     Rebecca  female  
+         2308    Philippa  female  
+         2354       Erika  female  
+         2363      Ashley  female  
+         2364       Emily  female  
+         2370     Deepika  female  
+         2371       Sarah  female  
+         2384        Lara  female  
+         2390     Charity  female  
+         2404      Carrie  female  
+         2411    Margaret  female  
+         2436   Stephanie  female  
+         2442     Deborah  female  
+         2443       Laura  female  
+         2459        Nina  female  
+         2482        Luma  female  
+         
+         [144 rows x 14 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: global hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: global}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b2834e0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{}Hoe vaak per jaar praat male vs. female over onderwerp: history}
+         \PY{n}{df\PYZus{}health} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}health}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tags}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}health}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Aantal keer gesproken over history per jaar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b223780>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{}Gemiddeld aantal vieuws over de jagen male vs. female als over onderwerp: history hebben}
+         \PY{n}{df\PYZus{}views} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}views}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ted}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{gender} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{\PYZam{}}\PY{p}{(}\PY{n}{df\PYZus{}ted}\PY{o}{.}\PY{n}{tags}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{views}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}views}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gemiddeld aantal views per jaar: history}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1f66b318320>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{TED_slides_files/TED_slides_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{End}\label{end}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
